@@ -1,5 +1,9 @@
 package com.example.ooput.modules;
 
+import com.example.ooput.models.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class AdminModule {
@@ -8,6 +12,8 @@ public class AdminModule {
     private final String PASS = "adminadmin";
 
     private boolean zooOpen = false;
+
+    private final List<People> staffList = new ArrayList<>();
 
     public AdminModule(Scanner scanner) {
         this.scanner = scanner;
@@ -58,10 +64,46 @@ public class AdminModule {
     }
 
     private void setupZooStaff() {
-        /*
-            In progress
-         */
+        System.out.println("\n--- Zoo Setup ---\n");
+
+        System.out.print("Enter your name, Manager: ");
+        String managerName = scanner.nextLine();
+        Manager manager = new Manager(managerName);
+        staffList.add(manager);
+
+        System.out.print("\nEnter Veterinarian's name: ");
+        String vetName = scanner.nextLine();
+        Veterinarian vet = new Veterinarian(vetName);
+        staffList.add(vet);
+
+        System.out.print("\nEnter Handler for Pachyderm Enclosure: ");
+        String handler1 = scanner.nextLine();
+        Handler pachydermHandler = new Handler(handler1);
+        staffList.add(pachydermHandler);
+
+        System.out.print("\nEnter Handler for Feline Enclosure: ");
+        String handler2 = scanner.nextLine();
+        Handler felineHandler = new Handler(handler2);
+        staffList.add(felineHandler);
+
+        System.out.print("\nEnter Handler for Bird Enclosure: ");
+        String handler3 = scanner.nextLine();
+        Handler birdHandler = new Handler(handler3);
+        staffList.add(birdHandler);
+
+        System.out.print("\nEnter Vendor for Ticket Shop: ");
+        String vendor1 = scanner.nextLine();
+        Vendor ticketVendor = new Vendor(vendor1);
+        staffList.add(ticketVendor);
+
+        System.out.print("\nEnter Vendor for Shop: ");
+        String vendor2 = scanner.nextLine();
+        Vendor shopVendor = new Vendor(vendor2);
+        staffList.add(shopVendor);
+
+        System.out.println("\nZoo staff setup complete.");
     }
+
 
     private void accessHandlerModule() {
         /*
