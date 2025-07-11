@@ -33,7 +33,7 @@ public class Main {
                     if (!isZooOpen(adminModule, "Zoo access")) break;
                     zooModule.showZooMenu();
                 }
-//                case 4 -> ; // Exit
+                case 4 -> System.exit(0);
                 default -> System.out.println("Invalid option.");
             }
         }
