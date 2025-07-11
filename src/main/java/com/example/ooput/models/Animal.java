@@ -15,5 +15,7 @@ public abstract class Animal {
         System.out.println(name + " is sleeping.");
     }
 
+    public abstract void makeSound();
+
     public abstract void roam();
 }
