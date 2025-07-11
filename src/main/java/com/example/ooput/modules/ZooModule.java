@@ -65,7 +65,7 @@ public class ZooModule {
             System.out.println("4. Return to Main Menu");
             System.out.print("Choose an Option: ");
             int choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine();
 
             if (choice == 4) return;
 
@@ -74,6 +74,7 @@ public class ZooModule {
 
             if (!answer.equals("yes")) continue;
 
+            //connected to the private class feedAnimalist
             switch (choice) {
                 case 1 -> feedAnimalList(Pachyderm.getAllPachyderm());
                 case 2 -> feedAnimalList(Feline.getAllFeline());
