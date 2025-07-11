@@ -1,6 +1,11 @@
 package com.example.ooput.modules;
 
 import com.example.ooput.models.*;
+import com.example.ooput.models.animal.Feline;
+import com.example.ooput.models.people.Handler;
+import com.example.ooput.models.people.Manager;
+import com.example.ooput.models.people.Vendor;
+import com.example.ooput.models.people.Veterinarian;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +13,6 @@ import java.util.Scanner;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class AdminModule {
     private final Scanner scanner;
