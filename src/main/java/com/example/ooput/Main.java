@@ -5,6 +5,8 @@ import com.example.ooput.modules.ZooModule;
 
 import java.util.Scanner;
 
+import static com.example.ooput.utils.ZooAccessUtil.isZooOpen;
+
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -23,8 +25,14 @@ public class Main {
 
             switch (choice) {
                 case 1 -> adminModule.login();
-//                case 2 -> ; // Ticketing
-                case 3 -> zooModule.showZooMenu(); // Enter Zoo
+                case 2 -> {
+                    if (!isZooOpen(adminModule, "Ticketing")) break;
+                    // Add ticketing method here
+                }
+                case 3 -> {
+                    if (!isZooOpen(adminModule, "Zoo access")) break;
+                    zooModule.showZooMenu();
+                }
 //                case 4 -> ; // Exit
                 default -> System.out.println("Invalid option.");
             }

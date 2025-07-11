@@ -167,22 +167,31 @@ public class AdminModule {
         }
     }
 
+    /**
+     * @arjtagalo please integrate zooOpen on your modules, if I forgot any
+     * if zooOpen is false certain functions should not proceed
+     * - @leadsoftengrlalusin
+     */
     private void openZoo() {
         if (zooOpen) {
-            /*
-                In progress
-             */
+            System.out.println("Zoo is already open to visitors.");
         } else {
-            /*
-                In progress
-             */
+            zooOpen = true;
+            System.out.println("Zoo is now open to visitors!");
         }
     }
 
     private void closeZoo() {
-        /*
-            In progress
-         */
+        if (!zooOpen) {
+            System.out.println("Zoo is already closed to visitors.");
+        } else {
+            zooOpen = false;
+            System.out.println("Zoo is now closed to visitors.");
+        }
+    }
+
+    public boolean isZooOpen() {
+        return zooOpen;
     }
 }
 
