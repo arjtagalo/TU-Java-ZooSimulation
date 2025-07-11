@@ -6,6 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
 public class AdminModule {
     private final Scanner scanner;
     private final String USER = "admin";
@@ -106,9 +111,57 @@ public class AdminModule {
 
 
     private void accessHandlerModule() {
-        /*
-            In progress
-         */
+        System.out.print("Enter your name (Handler): ");
+        String name = scanner.nextLine();
+
+        Handler handler = new Handler(name);
+        System.out.println("\nWelcome, Handler " + handler.getName() + "!\n");
+
+        List<Animal> assignedAnimals = new ArrayList<>();
+        assignedAnimals.add(new Feline("Mufasa", "Feline Enclosure"));
+        assignedAnimals.add(new Feline("Simba", "Feline Enclosure"));
+
+        while (true) {
+            System.out.println("--- Animal Duty Menu ---");
+            System.out.println("Animals assigned to you:");
+            for (int i = 0; i < assignedAnimals.size(); i++) {
+                System.out.println((i + 1) + ". " + assignedAnimals.get(i).name);
+            }
+
+            System.out.print("\nChoose animal number to interact with (0 to exit): ");
+            int animalChoice = Integer.parseInt(scanner.nextLine());
+
+            if (animalChoice == 0) {
+                System.out.println("Finished duties for the day.");
+                break;
+            }
+
+            if (animalChoice < 1 || animalChoice > assignedAnimals.size()) {
+                System.out.println("Invalid animal number.\n");
+                continue;
+            }
+
+            Animal selectedAnimal = assignedAnimals.get(animalChoice - 1);
+            System.out.println("Choose action:");
+            System.out.println("1. Feed " + selectedAnimal.name);
+            System.out.println("2. Exercise " + selectedAnimal.name);
+            System.out.println("3. Examine " + selectedAnimal.name + " to Vet");
+            System.out.print("Choose an option: ");
+
+            int action = Integer.parseInt(scanner.nextLine());
+
+            switch (action) {
+                case 1 -> handler.feed();
+                case 2 -> handler.exercise();
+                case 3 -> {
+                    handler.examine();
+                    System.out.println("Sending to Hospital...");
+                    String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                    System.out.println(selectedAnimal.name + " admitted at " + time + "\n");
+                }
+                default -> System.out.println("Invalid option.");
+            }
+        }
     }
 
     private void openZoo() {
