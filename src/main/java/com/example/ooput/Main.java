@@ -1,17 +1,41 @@
 package com.example.ooput;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import com.example.ooput.modules.AdminModule;
+import com.example.ooput.modules.ZooModule;
+
+import java.util.Scanner;
+
+import static com.example.ooput.utils.ZooAccessUtil.isZooOpen;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        //System.out.printf("Hello and welcome!");
+        Scanner scanner = new Scanner(System.in);
+        AdminModule adminModule = new AdminModule(scanner);
+        ZooModule zooModule = new ZooModule();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        while (true) {
+            System.out.println("\nZoo Simulation Main Menu:");
+            System.out.println("1. Admin Login");
+            System.out.println("2. Ticketing");
+            System.out.println("3. Enter Zoo");
+            System.out.println("4. Exit");
+            System.out.print("Select option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1 -> adminModule.login();
+                case 2 -> {
+                    if (!isZooOpen(adminModule, "Ticketing")) break;
+                    // Add ticketing method here
+                }
+                case 3 -> {
+                    if (!isZooOpen(adminModule, "Zoo access")) break;
+                    zooModule.showZooMenu();
+                }
+//                case 4 -> ; // Exit
+                default -> System.out.println("Invalid option.");
+            }
         }
     }
 }
