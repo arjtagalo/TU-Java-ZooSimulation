@@ -1,6 +1,7 @@
 package com.example.ooput;
 
 import com.example.ooput.modules.AdminModule;
+import com.example.ooput.modules.ZooModule;
 
 import java.util.Scanner;
 
@@ -8,6 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         AdminModule adminModule = new AdminModule(scanner);
+        ZooModule zooModule = new ZooModule();
 
         while (true) {
             System.out.println("\nZoo Simulation Main Menu:");
@@ -22,7 +24,7 @@ public class Main {
             switch (choice) {
                 case 1 -> adminModule.login();
 //                case 2 -> ; // Ticketing
-//                case 3 -> ; // Enter Zoo
+                case 3 -> zooModule.showZooMenu(); // Enter Zoo
 //                case 4 -> ; // Exit
                 default -> System.out.println("Invalid option.");
             }
