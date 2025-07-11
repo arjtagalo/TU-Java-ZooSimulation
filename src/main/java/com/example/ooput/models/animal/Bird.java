@@ -1,4 +1,6 @@
-package com.example.ooput.models;
+package com.example.ooput.models.animal;
+
+import com.example.ooput.models.Animal;
 
 public class Bird extends Animal {
     private String location;
