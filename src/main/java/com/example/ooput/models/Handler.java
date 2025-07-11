@@ -14,6 +14,7 @@ public class Handler extends People {
     }
 
     public void examine() {
-        System.out.println(name + " is examining the animals.");
+//        System.out.println(name + " is examining the animals.");
+        System.out.println();
     }
 }
