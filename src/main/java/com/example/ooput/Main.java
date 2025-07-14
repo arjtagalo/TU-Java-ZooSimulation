@@ -1,6 +1,8 @@
 package com.example.ooput;
 
+import com.example.ooput.models.people.Veterinarian;
 import com.example.ooput.modules.AdminModule;
+import com.example.ooput.modules.TicketingModule;
 import com.example.ooput.modules.ZooModule;
 
 import java.util.Scanner;
@@ -11,7 +13,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         AdminModule adminModule = new AdminModule(scanner);
-        ZooModule zooModule = new ZooModule();
+        TicketingModule ticketingModule = new TicketingModule(scanner);
+
 
         while (true) {
             System.out.println("\nZoo Simulation Main Menu:");
@@ -27,15 +30,28 @@ public class Main {
                 case 1 -> adminModule.login();
                 case 2 -> {
                     if (!isZooOpen(adminModule, "Ticketing")) break;
-                    // Add ticketing method here
+                    handleTicketPurchaseAndEntry(ticketingModule);
                 }
                 case 3 -> {
                     if (!isZooOpen(adminModule, "Zoo access")) break;
-                    zooModule.showZooMenu();
+
+                    Veterinarian vet = adminModule.getVeterinarian(); // need to setup staff first to get vet name
+                    if (vet == null) {
+                        System.out.println("Please complete staff setup in Admin first.");
+                        break;
+                    }
+                    ZooModule zooModule = new ZooModule(scanner, ticketingModule, vet);
+                    zooModule.ticketVerify();
                 }
-//                case 4 -> ; // Exit
+                case 4 -> System.exit(0);
                 default -> System.out.println("Invalid option.");
             }
         }
     }
+
+    private static void handleTicketPurchaseAndEntry(TicketingModule ticketingModule) {
+        ticketingModule.purchaseTicket();
+
+    }
+
 }
