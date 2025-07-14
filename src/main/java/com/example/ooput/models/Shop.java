@@ -10,4 +10,5 @@ public abstract class Shop {
     public String getShopName() {
         return shopName;
     }
+
 }

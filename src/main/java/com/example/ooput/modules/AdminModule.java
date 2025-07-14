@@ -6,6 +6,7 @@ import com.example.ooput.models.people.Handler;
 import com.example.ooput.models.people.Manager;
 import com.example.ooput.models.people.Vendor;
 import com.example.ooput.models.people.Veterinarian;
+import com.example.ooput.utils.Hospital;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,8 @@ public class AdminModule {
     private boolean zooOpen = false;
 
     private final List<People> staffList = new ArrayList<>();
+
+    private Veterinarian veterinarian; // use to get vet name
 
     public AdminModule(Scanner scanner) {
         this.scanner = scanner;
@@ -81,8 +84,8 @@ public class AdminModule {
 
         System.out.print("\nEnter Veterinarian's name: ");
         String vetName = scanner.nextLine();
-        Veterinarian vet = new Veterinarian(vetName);
-        staffList.add(vet);
+        veterinarian = new Veterinarian(vetName);  //changed this part
+        staffList.add(veterinarian); // changed this part
 
         System.out.print("\nEnter Handler for Pachyderm Enclosure: ");
         String handler1 = scanner.nextLine();
@@ -159,6 +162,7 @@ public class AdminModule {
                 case 3 -> {
                     handler.examine();
                     System.out.println("Sending to Hospital...");
+                    Hospital.admitAnimal(selectedAnimal);
                     String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                     System.out.println(selectedAnimal.name + " admitted at " + time + "\n");
                 }
@@ -167,11 +171,6 @@ public class AdminModule {
         }
     }
 
-    /**
-     * @arjtagalo please integrate zooOpen on your modules, if I forgot any
-     * if zooOpen is false certain functions should not proceed
-     * - @leadsoftengrlalusin
-     */
     private void openZoo() {
         if (zooOpen) {
             System.out.println("Zoo is already open to visitors.");
@@ -192,6 +191,11 @@ public class AdminModule {
 
     public boolean isZooOpen() {
         return zooOpen;
+    }
+
+    //for @arjtagalo to get the vet name
+    public Veterinarian getVeterinarian() {
+        return veterinarian;
     }
 }
 

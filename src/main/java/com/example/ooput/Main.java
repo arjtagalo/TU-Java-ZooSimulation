@@ -1,5 +1,6 @@
 package com.example.ooput;
 
+import com.example.ooput.models.people.Veterinarian;
 import com.example.ooput.modules.AdminModule;
 import com.example.ooput.modules.TicketingModule;
 import com.example.ooput.modules.ZooModule;
@@ -13,7 +14,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         AdminModule adminModule = new AdminModule(scanner);
         TicketingModule ticketingModule = new TicketingModule(scanner);
-        ZooModule zooModule = new ZooModule();
+
 
         while (true) {
             System.out.println("\nZoo Simulation Main Menu:");
@@ -29,11 +30,18 @@ public class Main {
                 case 1 -> adminModule.login();
                 case 2 -> {
                     if (!isZooOpen(adminModule, "Ticketing")) break;
-                    handleTicketPurchaseAndEntry(ticketingModule, zooModule);
+                    handleTicketPurchaseAndEntry(ticketingModule);
                 }
                 case 3 -> {
                     if (!isZooOpen(adminModule, "Zoo access")) break;
-                    zooModule.showZooMenu();
+
+                    Veterinarian vet = adminModule.getVeterinarian(); // need to setup staff first to get vet name
+                    if (vet == null) {
+                        System.out.println("Please complete staff setup in Admin first.");
+                        break;
+                    }
+                    ZooModule zooModule = new ZooModule(scanner, ticketingModule, vet);
+                    zooModule.ticketVerify();
                 }
                 case 4 -> System.exit(0);
                 default -> System.out.println("Invalid option.");
@@ -41,21 +49,9 @@ public class Main {
         }
     }
 
-    private static void handleTicketPurchaseAndEntry(TicketingModule ticketingModule, ZooModule zooModule) {
-        String ticketCode = ticketingModule.purchaseTicket();
-        if (ticketCode != null) {
-            if (ticketingModule.validateTicket(ticketCode)) {
-                /**
-                 * @arjtagalo, once ticketVerify was implemented zoo module
-                 * that should be the default module user will be redirected assuming they purchased a valid ticket from ticketingModule
-                 * - @leadsoftengrlalusin
-                 */
-                zooModule.showZooMenu();
-//                zooModule.ticketVerify();
-            } else {
-                System.out.println("Ticket validation failed.");
-            }
-        }
+    private static void handleTicketPurchaseAndEntry(TicketingModule ticketingModule) {
+        ticketingModule.purchaseTicket();
+
     }
 
 }
